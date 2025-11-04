@@ -8,4 +8,5 @@ Author: Your Name
 
 add_action( 'init', function() {
     // Simple initialization logic can go here.
+	die("Hello World");
 } );
