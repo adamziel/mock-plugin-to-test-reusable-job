@@ -11,3 +11,4 @@ add_action( 'init', function() {
 	die("Hello World");
 } );
 
+/**/
