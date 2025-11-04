@@ -15,7 +15,7 @@ jobs:
       contents: read
       pull-requests: write
       issues: write
-    uses: Automattic/preview-button/.github/workflows/playground-preview.yml@main
+    uses: adamziel/playground-preview/.github/workflows/playground-preview.yml@main
     with:
       preview-mode: comment
       plugin-path: .
