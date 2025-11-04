@@ -1,0 +1,21 @@
+name: PR Playground Preview
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - edited
+
+jobs:
+  playground-preview:
+    name: Update Playground Preview
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+    uses: Automattic/preview-button/.github/workflows/playground-preview.yml@main
+    with:
+      preview-mode: comment
+      plugin-path: .
