@@ -15,9 +15,7 @@ jobs:
       contents: read
       pull-requests: write
       issues: write
-    uses: ./.github/workflows/playground-preview.yml
+    uses: adamziel/playground-preview/.github/workflows/playground-preview.yml@trunk
     with:
       preview-mode: "description"
       plugin-path: .
-    secrets:
-      github-token: ${{ secrets.GITHUB_TOKEN }}
