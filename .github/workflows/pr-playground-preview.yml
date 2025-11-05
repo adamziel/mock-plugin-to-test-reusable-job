@@ -17,5 +17,5 @@ jobs:
       issues: write
     uses: adamziel/playground-preview/.github/workflows/playground-preview.yml@trunk
     with:
-      preview-mode: comment
+      preview-mode: "comment"
       plugin-path: .
