@@ -17,7 +17,7 @@ jobs:
       issues: write
     uses: ./.github/workflows/playground-preview.yml
     with:
-      preview-mode: "comment"
+      preview-mode: "description"
       plugin-path: .
     secrets:
       github-token: ${{ secrets.GITHUB_TOKEN }}
