@@ -45,7 +45,7 @@ jobs:
       issues: write
     uses: adamziel/playground-preview/.github/workflows/playground-preview.yml@trunk
     with:
-      preview-mode: "description"
-      # plugin-path: /
+      mode: "append-to-description"
+      # plugin-path: .
       blueprint: ${{ needs.create-blueprint.outputs.blueprint }}
 
