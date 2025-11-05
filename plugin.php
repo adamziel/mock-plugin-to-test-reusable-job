@@ -7,28 +7,9 @@ Author: Your Name
 */
 
 add_action( 'init', function() {
-    // Simple initialization logic can go here.
-	die("Hello World");
 } );
 
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
+add_action( 'wp_head', function() {
+    echo '<script>console.log("hello world");</script>';
+} );
 /**/
