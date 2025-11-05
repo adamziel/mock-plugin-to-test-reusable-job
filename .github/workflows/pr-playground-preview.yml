@@ -9,13 +9,11 @@ on:
       - edited
 
 jobs:
-  playground-preview:
-    name: Update Playground Preview
+  create-blueprint:
+    name: Create Blueprint
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-      issues: write
+    outputs:
+      blueprint: ${{ steps.blueprint.outputs.result }}
     steps:
       - name: Create Blueprint
         id: blueprint
@@ -37,10 +35,17 @@ jobs:
             };
             return JSON.stringify(blueprint);
           result-encoding: string
-      - name: Playground Preview Button
-        uses: adamziel/playground-preview/.github/workflows/playground-preview.yml@trunk
-        with:
-          preview-mode: "description"
-          # plugin-path: /
-          blueprint: ${{ steps.blueprint.outputs.result }}
+
+  playground-preview:
+    name: Update Playground Preview
+    needs: create-blueprint
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+    uses: adamziel/playground-preview/.github/workflows/playground-preview.yml@trunk
+    with:
+      preview-mode: "description"
+      # plugin-path: /
+      blueprint: ${{ needs.create-blueprint.outputs.blueprint }}
 
