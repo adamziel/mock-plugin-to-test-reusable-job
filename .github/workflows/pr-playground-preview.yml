@@ -11,11 +11,36 @@ on:
 jobs:
   playground-preview:
     name: Update Playground Preview
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: write
       issues: write
-    uses: adamziel/playground-preview/.github/workflows/playground-preview.yml@trunk
-    with:
-      preview-mode: "description"
-      plugin-path: /
+    steps:
+      - name: Create Blueprint
+        id: blueprint
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const blueprint = {
+              steps: [
+                {
+                  step: "installPlugin",
+                  pluginData: {
+                    resource: "git:directory",
+                    url: `https://github.com/${context.repo.owner}/${context.repo.repo}.git`,
+                    ref: context.payload.pull_request.head.ref,
+                    path: "/"
+                  }
+                }
+              ]
+            };
+            return JSON.stringify(blueprint);
+          result-encoding: string
+      - name: Playground Preview Button
+        uses: adamziel/playground-preview/.github/workflows/playground-preview.yml@trunk
+        with:
+          preview-mode: "description"
+          # plugin-path: /
+          blueprint: ${{ steps.blueprint.outputs.result }}
+
