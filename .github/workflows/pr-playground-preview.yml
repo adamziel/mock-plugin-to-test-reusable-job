@@ -23,7 +23,7 @@ jobs:
       contents: read         # Read repository information
       pull-requests: write   # Update PR descriptions
       issues: write         # Post/update comments (PRs are issues under the hood)
-    uses: WordPress/wordpress-playground/.github/workflows/playground-preview.yml@trunk
+    uses: WordPress/wordpress-playground/.github/workflows/playground-preview.yml@workflow-1.0.0
     with:
       # "append-to-description"  – add the button to the PR description
       # "post-comment"           – create a new comment with the preview button
