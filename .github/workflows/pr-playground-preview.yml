@@ -9,13 +9,43 @@ on:
       - edited
 
 jobs:
+  create-blueprint:
+    name: Create Blueprint
+    runs-on: ubuntu-latest
+    outputs:
+      blueprint: ${{ steps.blueprint.outputs.result }}
+    steps:
+      - name: Create Blueprint
+        id: blueprint
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const blueprint = {
+              steps: [
+                {
+                  step: "installPlugin",
+                  pluginData: {
+                    resource: "git:directory",
+                    url: `https://github.com/${context.repo.owner}/${context.repo.repo}.git`,
+                    ref: context.payload.pull_request.head.ref,
+                    path: "/"
+                  }
+                }
+              ]
+            };
+            return JSON.stringify(blueprint);
+          result-encoding: string
+
   playground-preview:
     name: Update Playground Preview
+    needs: create-blueprint
     permissions:
       contents: read
       pull-requests: write
       issues: write
-    uses: Automattic/preview-button/.github/workflows/playground-preview.yml@main
+    uses: adamziel/playground-preview/.github/workflows/playground-preview.yml@trunk
     with:
-      preview-mode: comment
-      plugin-path: .
+      mode: "append-to-description"
+      # plugin-path: .
+      blueprint: ${{ needs.create-blueprint.outputs.blueprint }}
+
