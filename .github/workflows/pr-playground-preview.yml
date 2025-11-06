@@ -32,24 +32,28 @@ jobs:
       # Use our custom blueprint with the PR branch
       blueprint: ${{ needs.create-blueprint.outputs.blueprint }}
     
-      # If you just want to install a plugin from a specific path in this repository
-      # and you don't really need an entire custom blueprint, you can used simplified
-      # configuration. Uncomment this line, remove the create-blueprint job below,
-      # and you're good!
+      # # If you just want to install a plugin from a specific path in this repository
+      # # and you don't really need an entire custom blueprint, you can used simplified
+      # # configuration. Uncomment this line, remove the create-blueprint job below,
+      # # and you're good!
       # plugin-path: .
 
-      # Similarly, you can set up a theme fairly easily:
+      # # Similarly, you can set up a theme fairly easily:
       # theme-path: .
 
-      # You can customize what gets appended to the PR description by uncommenting
-      # and changing the description-template below:
+      # # You can customize what gets appended to the PR description by uncommenting
+      # # and changing the description-template below. Available placeholders are
+      # # listed in the original workflow file at
+      # # https://github.com/WordPress/wordpress-playground/blob/d64ad78befeffc8a48e9f5be031b7be051add6ff/.github/workflows/playground-preview.yml#L313
       # description-template: |
       #  ### Test this PR in WordPress Playground
       #  
       #  {{PLAYGROUND_BUTTON}}
 
-      # Similarly, if this workflow is configured to post a comment, you can customize
-      # the content of that comment:
+      # # Similarly, if this workflow is configured to post a comment, you can customize
+      # # the content of that comment. Available placeholders are listed in the original
+      # # workflow file at
+      # # https://github.com/WordPress/wordpress-playground/blob/d64ad78befeffc8a48e9f5be031b7be051add6ff/.github/workflows/playground-preview.yml#L313
       # comment-template: |
       #  ## Preview Changes in WordPress Playground
       #  
@@ -60,6 +64,10 @@ jobs:
       #  2. Go to Plugins → Installed Plugins
       #  3. Verify `{{PLUGIN_SLUG}}` is active
       #  4. Test the new functionality
+
+      # # Are you hosting your own Playground instance? You change the default Playground URL
+      # # below:
+      # playground-host: https://playground.wordpress.net
     
   # This job builds a custom blueprint with dynamic values from the PR
   create-blueprint:
