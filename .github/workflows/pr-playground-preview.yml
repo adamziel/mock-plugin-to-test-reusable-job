@@ -16,21 +16,24 @@ on:
 jobs:
   # This job adds the preview button to your PR
   playground-preview:
-    name: Update Playground Preview
-    # Wait for the blueprint to be created first
+    name: Post Playground Preview Button
     needs: create-blueprint
+    runs-on: ubuntu-latest
     permissions:
-      contents: read         # Read repository information
-      pull-requests: write   # Update PR descriptions
-      issues: write         # Post/update comments (PRs are issues under the hood)
-    uses: WordPress/wordpress-playground/.github/workflows/playground-preview.yml@workflow-1.0.0
-    with:
-      # "append-to-description"  – add the button to the PR description
-      # "post-comment"           – create a new comment with the preview button
-      mode: "append-to-description"
-      
-      # Use our custom blueprint with the PR branch
-      blueprint: ${{ needs.create-blueprint.outputs.blueprint }}
+      contents: read
+      pull-requests: write
+      issues: write
+    steps:
+      - name: Post Playground Preview Button
+        uses: WordPress/action-wp-playground-pr-preview@v2
+        with:
+          # "append-to-description"  – add the button to the PR description
+          # "post-comment"           – create a new comment with the preview button
+          mode: append-to-description
+          
+          # Use our custom blueprint with the PR branch
+          blueprint: ${{ needs.create-blueprint.outputs.blueprint }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
     
       # # If you just want to install a plugin from a specific path in this repository
       # # and you don't really need an entire custom blueprint, you can used simplified
